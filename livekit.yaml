@@ -1,0 +1,36 @@
+# peek — livekit server config
+# tuned for local dev. lines marked PROD: should be reviewed for a real deploy.
+
+port: 7880
+log_level: info
+
+rtc:
+  # tcp fallback when UDP is blocked
+  tcp_port: 7881
+  # webrtc media UDP range — must match the docker-compose port mapping
+  port_range_start: 50000
+  port_range_end: 50019
+
+  # PROD: set this to true so livekit auto-detects its public IP via STUN.
+  # for local dev with --node-ip 127.0.0.1 we leave this off.
+  use_external_ip: false
+
+# api keys for token signing.
+# the dev defaults below are baked-in for `docker compose up` to just work.
+# PROD: rotate these. generate via:
+#   docker run --rm livekit/livekit-server generate-keys
+# then set LIVEKIT_API_KEY / LIVEKIT_API_SECRET in your .env.
+keys:
+  # default dev key — also used as the fallback if env substitution doesn't fire
+  devkey: devsecretdevsecretdevsecretdevse
+
+# external coturn handles TURN — livekit's built-in TURN is disabled to avoid
+# requiring a TLS cert in local dev. clients still get TURN credentials via
+# the coturn service exposed on port 3478.
+turn:
+  enabled: false
+  # PROD: enable + provide tls_cert / tls_key paths and a real domain
+
+# PROD: when running behind a reverse proxy that terminates TLS, set:
+#   rtc.use_external_ip: true
+#   external_url: wss://peek.your-domain.com

@@ -1,0 +1,70 @@
+# peek — local dev stack
+# brings up the next.js app, livekit SFU, and a coturn TURN server.
+# `docker compose up` should be all you need on a fresh clone.
+#
+# for a real VPS deployment, see README.md > production self-host.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: peek-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      # inside the docker network, livekit is reachable by service name.
+      # browsers still need a wss:// reachable from their network — set
+      # NEXT_PUBLIC_LIVEKIT_URL in .env to your public domain in production.
+      LIVEKIT_URL: ws://livekit:7880
+    depends_on:
+      livekit:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: peek-livekit
+    restart: unless-stopped
+    # node-ip must be reachable by clients. for local dev, 127.0.0.1 works
+    # because everything runs on the same host. in production, set HOST_IP
+    # to the public IP of the VPS (or use a domain via use_external_ip in
+    # livekit.yaml).
+    command: --config /etc/livekit.yaml --node-ip ${HOST_IP:-127.0.0.1}
+    ports:
+      - "7880:7880"                       # signaling (websocket)
+      - "7881:7881"                       # tcp fallback for media
+      - "50000-50019:50000-50019/udp"     # webrtc media (UDP) — small range for macOS docker; widen to 50000-50100 for prod / linux
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml:ro
+    environment:
+      # these flow into livekit.yaml via ${VAR} substitution
+      LIVEKIT_API_KEY: ${LIVEKIT_API_KEY:-devkey}
+      LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET:-devsecretdevsecretdevsecretdevse}
+      TURN_SECRET: ${TURN_SECRET:-devturnsecretdevturnsecret}
+    depends_on:
+      - coturn
+
+  coturn:
+    image: coturn/coturn:latest
+    container_name: peek-coturn
+    restart: unless-stopped
+    # network_mode: host is recommended in production for proper UDP relay.
+    # for local dev we use bridge networking so it composes cleanly on macOS.
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
+      # relay range — widen for real classroom use
+      - "49160-49200:49160-49200/udp"
+    volumes:
+      - ./coturn.conf:/etc/coturn/turnserver.conf:ro
+    command: ["-c", "/etc/coturn/turnserver.conf"]
