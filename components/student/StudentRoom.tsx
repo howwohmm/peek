@@ -8,7 +8,7 @@ import {
   useLocalParticipant,
   useRoomContext,
 } from "@livekit/components-react";
-import { RoomEvent, Track, type RemoteParticipant } from "livekit-client";
+import { RoomEvent, ScreenSharePresets, Track, type RemoteParticipant } from "livekit-client";
 import { decodeData, sendData } from "@/lib/livekit-client";
 import type { DataMessage } from "@/lib/types";
 import { RaiseHand } from "./RaiseHand";
@@ -134,7 +134,17 @@ function StudentRoomShell({ code, identity, name, onLeave }: ShellProps) {
     setPickerError(null);
     try {
       await sendData(localParticipant, { type: "share-accepted", identity });
-      await localParticipant.setScreenShareEnabled(true);
+      await localParticipant.setScreenShareEnabled(
+        true,
+        {
+          resolution: ScreenSharePresets.h1080fps15.resolution,
+          contentHint: "text",
+        },
+        {
+          videoCodec: "vp9",
+          screenShareEncoding: ScreenSharePresets.h1080fps15.encoding,
+        }
+      );
     } catch (err) {
       // User denied OS picker, or other failure.
       const message = err instanceof Error ? err.message.toLowerCase() : "";
