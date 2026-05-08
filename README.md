@@ -83,18 +83,6 @@ nothing stored server-side. close the tab, class is gone.
 
 ---
 
-## docs
-
-deeper writeups for whoever's curious or building on this:
-
-- [docs/TECHNICAL.md](./docs/TECHNICAL.md) — the long-form technical writeup. why every decision was made, what i'd do differently.
-- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) — system reference. directory layout, api surface, data channel choreography, token model.
-- [docs/SECURITY.md](./docs/SECURITY.md) — threat model + the JWT verifier in full.
-- [CONTRIBUTING.md](./CONTRIBUTING.md) — how to contribute. what gets pushback.
-- [docs/brand/](./docs/brand/) — logo, icon, color palette.
-
----
-
 ## license
 
 AGPL-3.0. free forever. 
