@@ -28,7 +28,7 @@ export default function RootLayout({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="by ohm"
-          className="fixed bottom-3 right-4 text-[10px] text-ink-mute font-light tracking-tight lowercase opacity-50 hover:opacity-100 transition-opacity z-50"
+          className="fixed bottom-4 right-5 text-xs text-ink-dim font-light tracking-tight lowercase opacity-80 hover:opacity-100 transition-opacity z-50"
         >
           by ohm
         </a>
