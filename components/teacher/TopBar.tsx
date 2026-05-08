@@ -25,6 +25,13 @@ export function TopBar({ code, onEndClass }: Props) {
   return (
     <header className="flex items-center justify-between px-8 py-5 border-b border-line">
       <div className="flex items-center gap-6">
+        <a href="/" aria-label="peek home" className="flex items-center gap-2 text-ink hover:text-accent transition-colors pr-4 border-r border-line mr-2">
+          <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5" aria-hidden>
+            <ellipse cx="16" cy="16" rx="13" ry="6.5" stroke="#c9a96a" strokeWidth="2.5" />
+            <circle cx="16" cy="16" r="3.5" fill="#c9a96a" />
+          </svg>
+          <span className="text-sm tracking-tight lowercase">peek</span>
+        </a>
         <span className="text-ink-dim text-xs lowercase tracking-tight">class code</span>
         <span
           className="text-4xl tracking-[0.2em] text-ink select-all"

@@ -22,17 +22,6 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-bg text-ink font-sans font-light antialiased">
-        <a
-          href="/"
-          aria-label="peek home"
-          className="fixed top-5 left-6 flex items-center gap-2 text-ink hover:text-accent transition-colors z-50"
-        >
-          <svg viewBox="0 0 32 32" fill="none" className="w-6 h-6" aria-hidden>
-            <ellipse cx="16" cy="16" rx="13" ry="6.5" stroke="#c9a96a" strokeWidth="2.5" />
-            <circle cx="16" cy="16" r="3.5" fill="#c9a96a" />
-          </svg>
-          <span className="text-base tracking-tight lowercase">peek</span>
-        </a>
         {children}
         <a
           href="https://x.com/ohmdreams"

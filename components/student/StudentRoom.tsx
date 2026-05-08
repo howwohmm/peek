@@ -173,8 +173,14 @@ function StudentRoomShell({ code, identity, name, onLeave }: ShellProps) {
   return (
     <main className="relative min-h-screen flex flex-col">
       <header className="flex items-center justify-between px-6 py-4 border-b border-line">
-        <div className="flex items-baseline gap-3">
-          <span className="text-ink-dim text-sm">peek</span>
+        <div className="flex items-center gap-3">
+          <a href="/" aria-label="peek home" className="flex items-center gap-2 text-ink hover:text-accent transition-colors">
+            <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5" aria-hidden>
+              <ellipse cx="16" cy="16" rx="13" ry="6.5" stroke="#c9a96a" strokeWidth="2.5" />
+              <circle cx="16" cy="16" r="3.5" fill="#c9a96a" />
+            </svg>
+            <span className="text-sm tracking-tight lowercase">peek</span>
+          </a>
           <span className="text-ink-mute text-xs">/</span>
           <span className="text-ink text-sm tracking-[0.15em]">{code}</span>
         </div>
