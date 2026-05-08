@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50" fill="none">
+  <ellipse cx="25" cy="25" rx="20" ry="10" stroke="#c9a96a" stroke-width="3.5"/>
+  <circle cx="25" cy="25" r="5.5" fill="#c9a96a"/>
+  <text x="60" y="35" font-family="Manrope, system-ui, -apple-system, sans-serif" font-weight="300" font-size="36" fill="#e8e6e1" letter-spacing="-0.02em">peek</text>
+</svg>
