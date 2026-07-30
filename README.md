@@ -1,16 +1,16 @@
 # peek
 
-in indian college computer labs teachers spend 
-like 30% of class just walking desk to desk.
+in indian college computer labs, teachers spend
+about 30% of class time walking from desk to desk.
 
-student has an error, teacher walks over.
-next student has an error, teacher walks over.
+a student has an error. the teacher walks to that desk.
+the next student has an error. the teacher walks to that desk.
 repeat for 2 hours.
 
-i'm about to start teaching my friends and juniors 
+i am about to start teaching my friends and juniors
 how to build and ship with ai.
 
-didn't want to do the desk walk thing.
+i did not want to do the desk walk thing.
 
 so i built this.
 
@@ -18,10 +18,10 @@ so i built this.
 
 ## what it does
 
-student opens a browser, types a 6-letter code and their name.
-they're in. no install. no account.
+a student opens a browser, types a 6-letter code and their name.
+they are in. no install. no account.
 
-when they're stuck they raise their hand in the app.
+when they are stuck, they raise their hand in the app.
 i click view. i see their screen. they fix it. done.
 
 one teacher. many students. nobody walks anywhere.
@@ -30,9 +30,9 @@ one teacher. many students. nobody walks anywhere.
 
 ## the consent thing
 
-student has to accept before i can see anything.
+the student has to accept before i can see anything.
 
-felt important to get right.
+this felt important to get right.
 
 ---
 
@@ -45,7 +45,7 @@ no setup, just open it.
 
 ## self-host
 
-runs on a $5 VPS. docker compose up and you're done.
+it runs on a $5 VPS. one docker compose up and that is all.
 
 ```bash
 git clone https://github.com/howwohmm/peek
@@ -60,11 +60,14 @@ full setup guide below for production.
 
 ## production setup
 
-if you're putting this on a real domain for your school or class, swap a few things first.
+if you put this on a real domain for your school or class, swap a few things first.
 
-1. rotate the keys. the `.env.example` ships with dev defaults. don't ship those. generate fresh ones with `docker run --rm livekit/livekit-server generate-keys`.
+1. rotate the keys. the `.env.example` ships with dev defaults. do not ship those. generate fresh ones with `docker run --rm livekit/livekit-server generate-keys`.
 
-2. point things at your domain. in `.env`, set `LIVEKIT_URL=wss://peek.yourdomain.com` and `NEXT_PUBLIC_LIVEKIT_URL=wss://peek.yourdomain.com`. put caddy or nginx in front to terminate TLS — browsers refuse webrtc over plain ws.
+2. point things at your domain.
+   in `.env`, set `LIVEKIT_URL=wss://peek.yourdomain.com` and `NEXT_PUBLIC_LIVEKIT_URL=wss://peek.yourdomain.com`.
+   put caddy or nginx in front to terminate TLS.
+   browsers refuse webrtc over plain ws.
 
 3. flip livekit to real-ip mode. in `livekit.yaml`, set `rtc.use_external_ip: true`. set `external-ip` in `coturn.conf` too.
 
@@ -72,18 +75,22 @@ if you're putting this on a real domain for your school or class, swap a few thi
 
 5. `docker compose up -d`.
 
-don't want to run servers? deploy the next.js side to vercel (hobby tier, free) and point it at livekit cloud (build tier, free, 5000 minutes/month). that's how peek-flame.vercel.app runs. zero infra, $0/month, scales to your first ~50 students.
+do not want to run servers?
+deploy the next.js side to vercel (hobby tier, free).
+point it at livekit cloud (build tier, free, 5000 minutes/month).
+that is how peek-flame.vercel.app runs.
+zero infra, $0/month, scales to your first ~50 students.
 
 ---
 
 ## stack
 
-next.js, livekit, coturn, tailwind. 
-nothing stored server-side. close the tab, class is gone.
+next.js, livekit, coturn, tailwind.
+the server stores nothing. close the tab, the class is gone.
 
 ---
 
 ## license
 
-AGPL-3.0. free forever. 
-if you build on it, give back.
+AGPL-3.0. free forever.
+if you extend it, share your changes.
